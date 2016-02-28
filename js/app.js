@@ -1,8 +1,8 @@
 // Enemies our player must avoid
+'use strict';
 var Enemy = function() {
   // Variables applied to each of our instances go here,
   // we've provided one for you to get started
-
   // The image/sprite for our enemies, this uses
   // a helper we've provided to easily load images
   this.sprite = 'images/enemy-bug.png';
@@ -13,19 +13,16 @@ var Enemy = function() {
   this.width = 70;
   this.height = 50;
 };
-
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
   // You should multiply any movement by the dt parameter
   // which will ensure the game runs at the same speed for
   // all computers.
-
   this.x += this.speed * dt;
   if (this.x >= 505) {
     this.x = 0;
   }
-
 };
 
 // Draw the enemy on the screen, required method for game
@@ -38,14 +35,12 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 
 var Player = function () {
-
   this.sprite = 'images/char-boy.png';
   this.respawn(); // Sets initial position of player - see below
   this.dy = 85; // Step of the player vertically
   this.dx = 100; // Step of the player horizontally
   this.width = 85;
   this.height = 85;
-
 };
 
 // Returns player to initial location
@@ -56,6 +51,7 @@ Player.prototype.respawn = function() {
 
 
 Player.prototype.update = function() {
+
   if ( this.x < 0 ) {  // Left bounary
     this.x = 0;
   }
@@ -74,6 +70,7 @@ Player.prototype.update = function() {
 
 // Returns true if two images are intersecting - see http://stackoverflow.com/questions/2752349/fast-rectangle-to-rectangle-intersection
 Player.prototype.intersectRect = function (r1, r2) {
+
   r1.left = r1.x;
   r2.left = r2.x;
   r1.right = r1.x + r1.width;
@@ -92,10 +89,10 @@ Player.prototype.intersectRect = function (r1, r2) {
 
 // Checks collisions
 Player.prototype.checkCollisions = function() {
-  for (var i = 0; i < allEnemies.length; i++) {
+  numberOfEnemies = allEnemies.length;
+  for (var i = 0; i < numberOfEnemies; i++) {
     if (this.intersectRect(player, allEnemies[i])) {
-      alert("Game Over . . . ");
-      player.respawn();
+      this.respawn();
     }
   }
 };
